@@ -5,6 +5,7 @@ import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { json } from "react-router-dom";
 import { cacheResults } from "../utils/searchSlice";
 
+
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
@@ -28,17 +29,17 @@ const Head = () => {
   }, [searchQuery]);
 
   const getSearchSuggestions = async () => {
-    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-    const json = await data.json();
-    // console.log(json[1]);
-    setSuggestions(json[1]);
-
-    //update cache
-    dispatch(
-      cacheResults({
-        [searchQuery]: json[1],
-      })
-    );
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const apiUrl = YOUTUBE_SEARCH_API + searchQuery;
+    
+    try {
+      const response = await fetch(proxyUrl + apiUrl);
+      const data = await response.json();
+      setSuggestions(data[1]);
+      dispatch(cacheResults({ [searchQuery]: data[1] }));
+    } catch (error) {
+      console.error('Error fetching search suggestions:', error);
+    }
   };
 
   const toggleMenuHandler = () => {
@@ -97,6 +98,7 @@ const Head = () => {
           alt="user"
         />
       </div>
+     
     </div>
   );
 };

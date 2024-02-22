@@ -2,26 +2,26 @@ import React from "react";
 
 const commentsData = [
   {
-    name: "John Doe",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
+    name: "Rohan Sharma",
+    text: "Nice video! Keep up the good work.",
     replies: [],
   },
   {
-    name: "Jane Smith",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
+    name: "Pooja Patel",
+    text: "This was so helpful. Thank you!",
     replies: [
       {
-        name: "Michael Johnson",
-        text: "Lorem ipsum dolor sit amet, consectetur adip",
+        name: "Vikram Singh",
+        text: "I tried this and it worked perfectly. Thanks for sharing!",
         replies: [],
       },
       {
-        name: "Emily Brown",
-        text: "Lorem ipsum dolor sit amet, consectetur adip",
+        name: "Ananya Gupta",
+        text: "Can you make a video on something intresting? That would be awesome!",
         replies: [
           {
-            name: "David Miller",
-            text: "Lorem ipsum dolor sit amet, consectetur adip",
+            name: "Riya Verma",
+            text: "I second that! would be really useful.",
             replies: [],
           },
         ],
@@ -29,23 +29,23 @@ const commentsData = [
     ],
   },
   {
-    name: "Robert Davis",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
+    name: "Kunal Shah",
+    text: "I have a question about timestamp 2:39. Can you clarify?",
     replies: [],
   },
   {
-    name: "Emma Wilson",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
+    name: "Neha Singh",
+    text: "This video changed my perspective. Thank you for sharing!",
     replies: [],
   },
   {
-    name: "Oliver Taylor",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
+    name: "Aditya Kumar",
+    text: "Great job on the explanation. I finally understand this concept.",
     replies: [],
   },
   {
-    name: "Sophia Clark",
-    text: "Lorem ipsum dolor sit amet, consectetur adip",
+    name: "Shreya Sharma",
+    text: "I loved the editing in this video. It was so engaging!",
     replies: [],
   },
 ];
@@ -83,6 +83,7 @@ const CommentsContainer = () => {
   return (
     <div className="m-5 p-2 ">
       <h1 className="text-2xl font-bold">comments: </h1>
+      <CommentsList comments={commentsData} />
     </div>
   );
 };
