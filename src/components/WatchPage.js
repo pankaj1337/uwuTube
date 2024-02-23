@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { closeMenu } from "../utils/appSlice";
 import CommentsContainer from "./CommentsContainer";
-import SideRecVideos from "./SideRecVideos";
+
 import LiveChat from "./LiveChat";
 
 const WatchPage = () => {
@@ -13,7 +13,7 @@ const WatchPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(closeMenu());
-  }, []);
+  }, [dispatch]);
   return (
     
     <div className="flex flex-col w-full">
