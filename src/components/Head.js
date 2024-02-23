@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
 import { cacheResults } from "../utils/searchSlice";
-
 
 const Head = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -12,6 +11,20 @@ const Head = () => {
 
   const searchCache = useSelector((store) => store.search);
   const dispatch = useDispatch();
+
+  const getSearchSuggestions = useCallback(async () => {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const apiUrl = YOUTUBE_SEARCH_API + searchQuery;
+    
+    try {
+      const response = await fetch(proxyUrl + apiUrl);
+      const data = await response.json();
+      setSuggestions(data[1]);
+      dispatch(cacheResults({ [searchQuery]: data[1] }));
+    } catch (error) {
+      console.error('Error fetching search suggestions:', error);
+    }
+  }, [searchQuery, dispatch]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -25,25 +38,12 @@ const Head = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [searchQuery]);
-
-  const getSearchSuggestions = async () => {
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const apiUrl = YOUTUBE_SEARCH_API + searchQuery;
-    
-    try {
-      const response = await fetch(proxyUrl + apiUrl);
-      const data = await response.json();
-      setSuggestions(data[1]);
-      dispatch(cacheResults({ [searchQuery]: data[1] }));
-    } catch (error) {
-      console.error('Error fetching search suggestions:', error);
-    }
-  };
+  }, [searchQuery, searchCache, getSearchSuggestions]);
 
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
+  
   return (
     <div className="grid grid-flow-col p-5 m-2 shadow-lg  ">
       <div className="flex col-span-1 ">
@@ -97,7 +97,6 @@ const Head = () => {
           alt="user"
         />
       </div>
-     
     </div>
   );
 };

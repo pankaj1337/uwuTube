@@ -11,9 +11,7 @@ const LiveChat = () => {
   const [liveMessage, setLiveMessage] = useState("");
 
   useEffect(() => {
-    const i = setInterval(() => {
-      //api polling
-      // console.log("api polling");
+    const interval = setInterval(() => {
       dispatch(
         addMessage({
           name: generateRandomName(),
@@ -21,8 +19,8 @@ const LiveChat = () => {
         })
       );
     }, 1500);
-    return () => clearInterval(i);
-  }, []);
+    return () => clearInterval(interval);
+  }, [dispatch]); // Include dispatch in the dependency array
 
   return (
     <>
@@ -38,8 +36,6 @@ const LiveChat = () => {
         className="w-full p-2 ml-2 border border-black"
         onSubmit={(e) => {
           e.preventDefault();
-          console.log("on form submit", liveMessage);
-
           dispatch(
             addMessage({
               name: "sher pankaj",
