@@ -18,7 +18,7 @@ const LiveChat = () => {
           message: " kuch boluga to vivad ho jayega",
         })
       );
-    }, 1500);
+    },1000);
     return () => clearInterval(interval);
   }, [dispatch]); // Include dispatch in the dependency array
 

@@ -8,8 +8,12 @@ const chatSlice = createSlice({
   },
   reducers: {
     addMessage: (state, action) => {
-        if (state.messages.length) 
-        state.messages.splice(OFFSET_LIVE_CHAT)
+      // Check if the messages array length exceeds the threshold
+      if (state.messages.length >= OFFSET_LIVE_CHAT) {
+        // Remove the oldest message
+        state.messages.shift();
+      }
+      // Push the new message
       state.messages.push(action.payload);
     },
   },
